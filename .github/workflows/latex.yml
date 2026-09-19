@@ -1,0 +1,26 @@
+name: Validate LaTeX reports
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile reports
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: src
+          root_file: |
+            EE5430_Assignment_1_Report_Nguyen_Thai_Thanh_Binh_2570175.tex
+            EE5430_Assignment_1_Report_Vu_Tien_Giang_2570188.tex
+            EE5430_Assignment_1_Report_Pham_Huy_Thanh_2570317.tex
+          latexmk_use_xelatex: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ee5430-assignment-1-reports
+          path: src/*.pdf

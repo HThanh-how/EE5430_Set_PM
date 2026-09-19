@@ -1,0 +1,162 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ee5430_style}[2026/09/19 EE5430 assignment style]
+
+\RequirePackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\RequirePackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}
+\RequirePackage{amsmath,amssymb,mathtools}
+\RequirePackage{booktabs,array}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\graphicspath{{../assets/}{assets/}}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing,positioning}
+\RequirePackage{fancyhdr}
+\RequirePackage{microtype}
+\RequirePackage{hyperref}
+\RequirePackage{lastpage}
+
+\definecolor{bkblue}{HTML}{005A88}
+\definecolor{bkcyan}{HTML}{00A0C6}
+\definecolor{bkgray}{HTML}{F2F5F7}
+\definecolor{bkdark}{HTML}{263746}
+\definecolor{bkgreen}{HTML}{16866B}
+\definecolor{bkred}{HTML}{B2403B}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bkblue,
+  urlcolor=bkcyan,
+  pdftitle={EE5430 Assignment 1 -- Transmission Lines},
+  pdfauthor={\StudentName}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{EE5430 -- Assignment 1}
+\rhead{\StudentName}
+\cfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[itemize]{leftmargin=1.6em,itemsep=0.2em,topsep=0.2em}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=0.25em,topsep=0.25em}
+\numberwithin{equation}{section}
+
+\renewcommand{\jmath}{\mathrm{j}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\degree}{^{\circ}}
+\newcommand{\phasor}[1]{\widetilde{#1}}
+\newcommand{\answer}[1]{%
+  \begin{center}
+  \setlength{\fboxsep}{8pt}%
+  \colorbox{bkgray}{\parbox{0.90\linewidth}{\raggedright\color{bkdark}\textbf{Answer.} #1}}
+  \end{center}
+}
+\newcommand{\checkmarktext}{\textcolor{bkgreen}{\textbf{Check:}}}
+
+\newcommand{\MakeTitlePage}{%
+\begin{titlepage}
+  \centering
+  {\sffamily\bfseries\large VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY\par}
+  \vspace{2mm}
+  {\sffamily\bfseries\large HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY\par}
+  \vspace{2mm}
+  {\sffamily Faculty of Electrical and Electronics Engineering\par}
+  \vspace{18mm}
+  \includegraphics[width=0.35\textwidth]{hcmut_logo.png}
+  \vspace{14mm}
+
+  {\color{bkblue}\rule{\linewidth}{1.2pt}\par}
+  \vspace{7mm}
+  {\sffamily\bfseries\Huge Microwave Engineering and Systems\par}
+  \vspace{3mm}
+  {\sffamily\bfseries\Large EE5430\par}
+  \vspace{9mm}
+  {\sffamily\bfseries\LARGE Assignment 1\par}
+  \vspace{3mm}
+  {\sffamily\Large Transmission-Line Parameters and Wave Propagation\par}
+  \vspace{7mm}
+  {\color{bkblue}\rule{\linewidth}{1.2pt}\par}
+  \vspace{16mm}
+
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{>{\bfseries}rl}
+    Student: & \StudentName \\
+    Student ID: & \StudentID \\
+    Report version: & \ReportVariant
+  \end{tabular}
+  \vfill
+  {\large September 2026\par}
+\end{titlepage}
+}
+
+\newcommand{\LineElementDiagram}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+  \draw[line width=0.9pt] (0,0) -- (8.8,0);
+  \draw[line width=0.9pt] (0,2.4) -- (0.8,2.4);
+  \draw[line width=0.9pt] (0.8,2.4) -- (1.0,2.4)
+    -- (1.15,2.65) -- (1.45,2.15) -- (1.75,2.65) -- (2.05,2.15)
+    -- (2.35,2.65) -- (2.65,2.15) -- (2.80,2.4) -- (3.05,2.4);
+  \node[above] at (1.9,2.75) {$R\,\Delta z$};
+  \draw[line width=0.9pt] (3.05,2.4) -- (3.25,2.4);
+  \draw[line width=0.9pt] (3.25,2.4)
+    .. controls (3.38,2.75) and (3.65,2.75) .. (3.78,2.4)
+    .. controls (3.91,2.05) and (4.18,2.05) .. (4.31,2.4)
+    .. controls (4.44,2.75) and (4.71,2.75) .. (4.84,2.4)
+    .. controls (4.97,2.05) and (5.24,2.05) .. (5.37,2.4);
+  \draw[line width=0.9pt] (5.37,2.4) -- (8.8,2.4);
+  \node[above] at (4.3,2.75) {$L\,\Delta z$};
+  \draw[line width=0.9pt] (6.1,2.4) -- (6.1,1.75);
+  \draw[line width=0.9pt] (5.85,1.75) -- (6.35,1.75);
+  \draw[line width=0.9pt] (5.85,1.48) -- (6.35,1.48);
+  \draw[line width=0.9pt] (6.1,1.48) -- (6.1,0);
+  \node[right] at (6.35,1.62) {$C\,\Delta z$};
+  \draw[line width=0.9pt] (7.55,2.4) -- (7.55,2.1);
+  \draw[line width=0.9pt] (7.55,2.1) -- (7.30,1.92) -- (7.80,1.66)
+    -- (7.30,1.40) -- (7.80,1.14) -- (7.30,0.88) -- (7.55,0.70) -- (7.55,0);
+  \node[right] at (7.82,1.4) {$G\,\Delta z$};
+  \draw[->] (-0.05,2.75) -- (0.75,2.75) node[midway,above] {$i(z,t)$};
+  \draw[->] (8.85,2.75) -- (8.05,2.75) node[midway,above] {$i(z+\Delta z,t)$};
+  \draw[<->] (-0.35,0.1) -- (-0.35,2.3) node[midway,left] {$v(z,t)$};
+  \draw[<->] (9.15,0.1) -- (9.15,2.3) node[midway,right] {$v(z+\Delta z,t)$};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\MatchedLineDiagram}[5]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+  \draw[line width=0.9pt] (0,0) -- (8.8,0);
+  \draw[line width=0.9pt] (0,2.8) -- (0.7,2.8);
+  \draw[line width=0.9pt] (0.7,2.8) -- (0.9,2.8)
+    -- (1.05,3.05) -- (1.35,2.55) -- (1.65,3.05) -- (1.95,2.55)
+    -- (2.25,3.05) -- (2.55,2.55) -- (2.70,2.8) -- (3.0,2.8);
+  \node[above] at (1.85,3.10) {$R_s=#2$};
+  \draw[line width=1.4pt,bkblue] (3.0,2.8) -- (8.0,2.8);
+  \draw[line width=1.4pt,bkblue] (3.0,0) -- (8.0,0);
+  \node at (5.5,1.4) {$Z_0=#3$};
+  \draw[line width=0.9pt] (8.0,2.8) -- (8.4,2.8) -- (8.4,2.55);
+  \draw[line width=0.9pt] (8.4,2.55) -- (8.15,2.36) -- (8.65,2.08)
+    -- (8.15,1.80) -- (8.65,1.52) -- (8.15,1.24) -- (8.65,0.96)
+    -- (8.4,0.75) -- (8.4,0);
+  \node[right] at (8.65,1.65) {$#5$};
+  \draw (0.35,1.40) circle (0.38);
+  \draw[line width=0.9pt] (0.35,1.78) -- (0.35,2.8);
+  \draw[line width=0.9pt] (0.35,1.02) -- (0.35,0);
+  \node[left,align=right] at (-0.05,1.40) {$#1$};
+  \draw[<->] (3.0,3.55) -- (8.0,3.55) node[midway,fill=white] {$\ell=#4$};
+  \draw[->] (3.0,-0.45) -- (5.0,-0.45) node[right] {$z$};
+  \node[below] at (3.0,-0.35) {$0$};
+  \node[below] at (8.0,-0.35) {$\ell$};
+\end{tikzpicture}
+\end{center}
+}
+
+\AtBeginDocument{\color{bkdark}}

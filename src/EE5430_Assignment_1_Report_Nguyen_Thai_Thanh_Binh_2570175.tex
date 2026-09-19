@@ -1,0 +1,233 @@
+\documentclass[12pt,a4paper]{article}
+\newcommand{\StudentName}{Nguyen Thai Thanh Binh}
+\newcommand{\StudentID}{2570175}
+\newcommand{\ReportVariant}{Analytical derivation}
+\usepackage{ee5430_style}
+
+\begin{document}
+\MakeTitlePage
+\tableofcontents
+\newpage
+
+\section{Problem 1: Parameters of a lossy transmission line}
+
+\LineElementDiagram
+
+The distributed parameters are
+\[
+R=1.5~\Omega/\mathrm{m},\quad G=0.4~\mathrm{mS/m},\quad
+L=10~\mathrm{nH/m},\quad C=0.2~\mathrm{pF/m},\quad f=2~\mathrm{GHz}.
+\]
+With the $\ee^{\jmath\omega t}$ convention, the exact characteristic impedance and
+propagation constant are
+\begin{align}
+Z_0&=\sqrt{\frac{R+\jmath\omega L}{G+\jmath\omega C}},\\
+\gamma&=\alpha+\jmath\beta
+=\sqrt{(R+\jmath\omega L)(G+\jmath\omega C)}.
+\end{align}
+At $\omega=2\pi f=1.2566371\times10^{10}~\mathrm{rad/s}$,
+\begin{align*}
+R+\jmath\omega L&=1.5+\jmath125.6637~\Omega/\mathrm{m},\\
+G+\jmath\omega C&=4.0000\times10^{-4}
+ +\jmath2.51327\times10^{-3}~\mathrm{S/m}.
+\end{align*}
+Therefore,
+\begin{align}
+Z_0&=221.6297+\jmath16.1961~\Omega
+     =222.2207\angle4.1796\degree~\Omega,\\
+\gamma&=0.0479467+\jmath0.5634947~\mathrm{m}^{-1}.
+\end{align}
+Consequently,
+\begin{align*}
+\alpha&=0.0479467~\mathrm{Np/m},\\
+\alpha_{\mathrm{dB}}&=8.6858896\alpha=0.41646~\mathrm{dB/m},\\
+\beta&=0.563495~\mathrm{rad/m},\\
+\lambda&=\frac{2\pi}{\beta}=11.1504~\mathrm{m}.
+\end{align*}
+
+\answer{$Z_0=221.63+\jmath16.20~\Omega$ and
+$\gamma=(0.04795+\jmath0.56349)~\mathrm{m}^{-1}$.  Thus the line attenuates
+at $0.04795~\mathrm{Np/m}=0.4165~\mathrm{dB/m}$, while
+$\beta=0.56349~\mathrm{rad/m}$ and $\lambda=11.150~\mathrm{m}$.}
+
+\section{Problem 2: A nominal 50-ohm coaxial cable at 500 MHz}
+
+Here
+\[
+R=4~\Omega/\mathrm{m},\quad G=1~\mathrm{mS/m},\quad
+L=250~\mathrm{nH/m},\quad C=100~\mathrm{pF/m},\quad f=500~\mathrm{MHz}.
+\]
+
+\subsection{Exact calculation}
+
+For $\omega=3.1415927\times10^9~\mathrm{rad/s}$,
+\begin{align*}
+R+\jmath\omega L&=4+\jmath785.3982~\Omega/\mathrm{m},\\
+G+\jmath\omega C&=0.001+\jmath0.3141593~\mathrm{S/m}.
+\end{align*}
+Substitution in the exact formulas gives
+\begin{align}
+Z_0&=50.0001748-\jmath0.0477458~\Omega
+    =50.0001976\angle(-0.054712\degree)~\Omega,\\
+\gamma&=0.06499997+\jmath15.70797043~\mathrm{m}^{-1}.
+\end{align}
+Thus $\alpha=0.06499997~\mathrm{Np/m}=0.5645897~\mathrm{dB/m}$ and
+$\beta=15.70797043~\mathrm{rad/m}$.
+
+\subsection{Low-loss approximation and comparison}
+
+The loss ratios are
+\[
+\frac{R}{\omega L}=5.093\times10^{-3}\ll1,
+\qquad
+\frac{G}{\omega C}=3.183\times10^{-3}\ll1,
+\]
+so the low-loss formulas apply:
+\begin{align}
+Z_0&\simeq\sqrt{\frac{L}{C}}=50.000~\Omega,\\
+\alpha&\simeq\frac{1}{2}\left(\frac{R}{Z_0}+GZ_0\right)
+=\frac{1}{2}(0.08+0.05)=0.065000~\mathrm{Np/m},\\
+\beta&\simeq\omega\sqrt{LC}=15.7079633~\mathrm{rad/m}.
+\end{align}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccc}
+\toprule
+Quantity & Exact & Low-loss & Relative difference \\
+\midrule
+$|Z_0|$ ($\Omega$) & 50.0001976 & 50.0000000 & $3.95\times10^{-4}\%$ \\
+$\alpha$ (Np/m) & 0.06499997 & 0.06500000 & $4.56\times10^{-5}\%$ \\
+$\beta$ (rad/m) & 15.70797043 & 15.70796327 & $4.56\times10^{-5}\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Phase velocity and wavelength}
+
+Using the exact phase constant,
+\begin{align}
+v_p&=\frac{\omega}{\beta}=1.9999991\times10^8~\mathrm{m/s},\\
+\lambda&=\frac{2\pi}{\beta}=0.3999998~\mathrm{m}.
+\end{align}
+The low-loss values are $v_p\simeq1/\sqrt{LC}=2.0000\times10^8~\mathrm{m/s}$
+and $\lambda\simeq0.4000~\mathrm{m}$.
+
+\answer{Exact: $Z_0=50.00017-\jmath0.04775~\Omega$ and
+$\gamma=(0.06499997+\jmath15.70797043)~\mathrm{m}^{-1}$.  The low-loss
+approximation is essentially identical; $v_p\approx2.00\times10^8~\mathrm{m/s}$
+and $\lambda\approx0.400~\mathrm{m}$.}
+
+\section{Problem 3: Matched, lossless line}
+
+\MatchedLineDiagram{v_s(t)=5\cos(2\pi\,2\!\times\!10^8t)}{75~\Omega}{50~\Omega}{3~\mathrm{m}}{R_L=50~\Omega}
+
+The load is matched, so $\Gamma_L=0$ and only a forward wave exists.  The
+source frequency and the line constants are
+\begin{align*}
+f&=2.0\times10^8~\mathrm{Hz}, &
+\omega&=4\pi\times10^8~\mathrm{rad/s},\\
+v_p&=2.0\times10^8~\mathrm{m/s}, &
+\lambda&=\frac{v_p}{f}=1.0~\mathrm{m},\\
+\beta&=\frac{2\pi}{\lambda}=2\pi~\mathrm{rad/m}.&&
+\end{align*}
+Because the input impedance of a matched line equals $Z_0$, the incident-wave
+amplitude follows from a voltage divider:
+\[
+V_0^+=5\frac{Z_0}{R_s+Z_0}
+=5\frac{50}{75+50}=2.0~\mathrm{V},
+\qquad I_0^+=\frac{V_0^+}{Z_0}=0.040~\mathrm{A}.
+\]
+Taking $z=0$ at the line input, the instantaneous waves are therefore
+\begin{align}
+v(z,t)&=2\cos\left(4\pi\times10^8t-2\pi z\right)~\mathrm{V},\\
+i(z,t)&=0.040\cos\left(4\pi\times10^8t-2\pi z\right)~\mathrm{A},
+\qquad 0\le z\le3~\mathrm{m}.
+\end{align}
+Since $\ell/\lambda=3$, the electrical length is
+$\beta\ell=6\pi~\mathrm{rad}=1080\degree$.  At the load,
+\[
+v_L(t)=v(3,t)=2\cos(4\pi\times10^8t-6\pi)
+=2\cos(4\pi\times10^8t)~\mathrm{V}.
+\]
+
+\answer{The line is three wavelengths long.  Its load voltage has a peak
+value of $2~\mathrm{V}$ and is in phase with the source voltage (the accumulated
+phase is $1080\degree$, an integer number of cycles).}
+
+\section{Problem 4: Matched air line and an open-circuit comparison}
+
+\MatchedLineDiagram{v_s(t)=10\cos(2\pi\,5\!\times\!10^7t)}{25~\Omega}{100~\Omega}{6~\mathrm{m}}{R_L=100~\Omega}
+
+For an air line, $v_p=3.0\times10^8~\mathrm{m/s}$.  Hence
+\begin{align*}
+f&=5.0\times10^7~\mathrm{Hz}, & \omega&=\pi\times10^8~\mathrm{rad/s},\\
+\lambda&=\frac{v_p}{f}=6.0~\mathrm{m}, &
+\beta&=\frac{2\pi}{\lambda}=\frac{\pi}{3}~\mathrm{rad/m}.
+\end{align*}
+
+\subsection{Instantaneous voltage and current}
+
+For the matched load, $Z_{\mathrm{in}}=Z_0=100~\Omega$ and
+\[
+V_0^+=10\frac{100}{25+100}=8.0~\mathrm{V},
+\qquad I_0^+=\frac{8}{100}=0.080~\mathrm{A}.
+\]
+Thus
+\begin{align}
+v(z,t)&=8\cos\left(\pi\times10^8t-\frac{\pi}{3}z\right)~\mathrm{V},\\
+i(z,t)&=0.080\cos\left(\pi\times10^8t-\frac{\pi}{3}z\right)~\mathrm{A},
+\qquad 0\le z\le6~\mathrm{m}.
+\end{align}
+
+\subsection{Average load power}
+
+The load voltage has peak amplitude $8~\mathrm{V}$, so
+\begin{equation}
+P_{L,\mathrm{av}}=\frac{V_{L,\mathrm{rms}}^2}{R_L}
+=\frac{(8/\sqrt2)^2}{100}=0.320~\mathrm{W}.
+\end{equation}
+
+\subsection{If the load is replaced by an open circuit}
+
+The forward-wave expression above is no longer valid because an open circuit
+has $\Gamma_L=+1$.  A reflected wave of equal voltage amplitude is produced.
+Here $\ell=\lambda$, so $Z_{\mathrm{in}}\to\infty$ and the source current is
+zero; therefore the total input voltage equals the source voltage.  With
+$\phasor V_0^-=\phasor V_0^+=5~\mathrm{V}$,
+\begin{align}
+\phasor V(z)&=5\ee^{-\jmath\beta z}+5\ee^{\jmath\beta z}
+=10\cos(\beta z),\\
+v(z,t)&=10\cos\left(\frac{\pi z}{3}\right)
+\cos(\pi\times10^8t)~\mathrm{V}.
+\end{align}
+This is a standing wave, not a single traveling wave.
+
+\answer{For the matched load, $v(z,t)=8\cos(\pi10^8t-\pi z/3)$ V,
+$i(z,t)=0.08\cos(\pi10^8t-\pi z/3)$ A, and $P_L=0.320$ W.
+With an open circuit the formula changes to a standing-wave expression because
+$\Gamma_L=+1$.}
+
+\section*{Final numerical summary}
+\addcontentsline{toc}{section}{Final numerical summary}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{>{\bfseries}c p{0.77\linewidth}}
+\toprule
+Problem & Main result \\
+\midrule
+1 & $Z_0=221.63+\jmath16.20~\Omega$;
+$\gamma=0.04795+\jmath0.56349~\mathrm{m}^{-1}$;
+$\lambda=11.150~\mathrm{m}$. \\
+2 & $Z_0=50.00017-\jmath0.04775~\Omega$;
+$\gamma=0.06500+\jmath15.70797~\mathrm{m}^{-1}$;
+$v_p\approx2.00\times10^8~\mathrm{m/s}$, $\lambda\approx0.400~\mathrm{m}$. \\
+3 & $v=2\cos(4\pi10^8t-2\pi z)$ V,
+$i=0.04\cos(4\pi10^8t-2\pi z)$ A; $\ell=3\lambda$. \\
+4 & $v=8\cos(\pi10^8t-\pi z/3)$ V,
+$i=0.08\cos(\pi10^8t-\pi z/3)$ A; $P_L=0.320$ W. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}

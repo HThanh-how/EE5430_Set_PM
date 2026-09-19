@@ -1,0 +1,245 @@
+\documentclass[12pt,a4paper]{article}
+\newcommand{\StudentName}{Vu Tien Giang}
+\newcommand{\StudentID}{2570188}
+\newcommand{\ReportVariant}{Phasor method and engineering checks}
+\usepackage{ee5430_style}
+
+\begin{document}
+\MakeTitlePage
+\tableofcontents
+\newpage
+
+\section{Preliminaries}
+
+All phasors in this report use $\ee^{\jmath\omega t}$.  Thus a forward wave
+travelling in the $+z$ direction contains $\ee^{-\gamma z}$.  For a uniform
+line,
+\begin{equation}
+Z_0=\sqrt{\frac{R+\jmath\omega L}{G+\jmath\omega C}},
+\qquad
+\gamma=\alpha+\jmath\beta
+=\sqrt{(R+\jmath\omega L)(G+\jmath\omega C)}.
+\end{equation}
+The principal square roots are selected so that $\alpha>0$ and
+$\Re\{Z_0\}>0$.  Peak (not RMS) amplitudes are used in the time-domain
+expressions.
+
+\section{Problem 1}
+
+\subsection{Complex line parameters}
+
+\LineElementDiagram
+
+Convert all data to SI units:
+\[
+(R,L,G,C)=(1.5,\,10\times10^{-9},\,0.4\times10^{-3},\,
+0.2\times10^{-12}),qquad f=2\times10^9~\mathrm{Hz}.
+\]
+At $\omega=1.256637061\times10^{10}~\mathrm{rad/s}$, define
+\[
+Z'=R+\jmath\omega L=1.5+\jmath125.663706,
+\qquad
+Y'=G+\jmath\omega C=0.0004+\jmath0.002513274.
+\]
+Then
+\begin{align*}
+\frac{Z'}{Y'}&=4.884148\times10^4+\jmath7.179858\times10^3,\\
+Z'Y'&=-0.31522734+\jmath0.05326548.
+\end{align*}
+Taking the principal square roots,
+\begin{align}
+Z_0&=221.629712+\jmath16.196087~\Omega,\\
+\gamma&=0.047946678+\jmath0.563494654~\mathrm{m}^{-1}.
+\end{align}
+In polar form, $Z_0=222.220706\angle4.179588\degree~\Omega$.  The requested
+wave quantities follow directly:
+\begin{align}
+\alpha&=0.047946678~\mathrm{Np/m}
+=0.41646485~\mathrm{dB/m},\\
+\beta&=0.563494654~\mathrm{rad/m},\\
+\lambda&=\frac{2\pi}{\beta}=11.1503903~\mathrm{m}.
+\end{align}
+
+\checkmarktext\ Multiplying the phasor by $\ee^{-\alpha z}$ shows that the
+amplitude decreases by $\ee^{-0.04795}=0.95318$ over one metre, equivalent to
+$20\log_{10}(1/0.95318)=0.4165$ dB.
+
+\answer{$Z_0=222.22\angle4.18\degree~\Omega$ and
+$\gamma=(0.04795+\jmath0.56349)~\mathrm{m}^{-1}$.  Hence
+$\lambda=11.1504~\mathrm{m}$.}
+
+\section{Problem 2}
+
+\subsection{Exact solution}
+
+For the coaxial line,
+\[
+Z'=4+\jmath785.398163~\Omega/\mathrm{m},
+\qquad
+Y'=0.001+\jmath0.314159265~\mathrm{S/m}.
+\]
+The exact values are
+\begin{align}
+Z_0&=\sqrt{Z'/Y'}
+=50.00017478-\jmath0.04774583~\Omega,\\
+\gamma&=\sqrt{Z'Y'}
+=0.064999970+\jmath15.707970430~\mathrm{m}^{-1}.
+\end{align}
+Therefore the exact attenuation is $0.064999970~\mathrm{Np/m}$ or
+$0.56458974~\mathrm{dB/m}$.
+
+\subsection{Low-loss model}
+
+The two small parameters are
+\[
+\varepsilon_R=\frac{R}{\omega L}=0.005093,
+\qquad
+\varepsilon_G=\frac{G}{\omega C}=0.003183.
+\]
+Both are much less than one.  The first-order low-loss model yields
+\begin{align}
+Z_{0,\mathrm{LL}}&=\sqrt{L/C}=50.000~\Omega,\\
+\alpha_{\mathrm{LL}}&=\frac{R}{2}\sqrt{\frac{C}{L}}
++\frac{G}{2}\sqrt{\frac{L}{C}}
+=0.065000~\mathrm{Np/m},\\
+\beta_{\mathrm{LL}}&=\omega\sqrt{LC}=15.70796327~\mathrm{rad/m}.
+\end{align}
+The comparison below uses magnitude for the exact characteristic impedance.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{lrrr}
+\toprule
+ & Exact & Approximate & Approximation error \\
+\midrule
+$|Z_0|$ ($\Omega$) & 50.00019757 & 50.00000000 & $0.000395\%$ \\
+$\alpha$ (Np/m) & 0.064999970 & 0.065000000 & $0.0000456\%$ \\
+$\beta$ (rad/m) & 15.70797043 & 15.70796327 & $0.0000456\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The approximation is more than adequate at 500 MHz.
+
+\subsection{Velocity and wavelength}
+
+The exact phase values are
+\begin{align}
+v_p&=\frac{\omega}{\beta}=1.99999909\times10^8~\mathrm{m/s},\\
+\lambda&=\frac{2\pi}{\beta}=0.399999818~\mathrm{m}.
+\end{align}
+The low-loss equations return $2.00000000\times10^8~\mathrm{m/s}$ and
+$0.400000000~\mathrm{m}$, respectively.
+
+\answer{$Z_0\approx50~\Omega$, $\alpha\approx0.065~\mathrm{Np/m}$,
+$\beta\approx15.708~\mathrm{rad/m}$, $v_p\approx2.00\times10^8~\mathrm{m/s}$,
+and $\lambda\approx0.400~\mathrm{m}$.}
+
+\section{Problem 3}
+
+\MatchedLineDiagram{v_s(t)=5\cos(2\pi\,2\!\times\!10^8t)}{75~\Omega}{50~\Omega}{3~\mathrm{m}}{R_L=50~\Omega}
+
+\subsection{Forward-wave phasors}
+
+Since $R_L=Z_0$, the reflection coefficient is zero:
+\[
+\Gamma_L=\frac{R_L-Z_0}{R_L+Z_0}=0.
+\]
+The line input also equals $50~\Omega$.  Thus
+\begin{align*}
+\phasor V(0)&=5\frac{50}{75+50}=2\angle0\degree~\mathrm{V},\\
+\phasor I(0)&=\frac{\phasor V(0)}{50}=0.04\angle0\degree~\mathrm{A}.
+\end{align*}
+The wavelength is $v_p/f=1~\mathrm{m}$, giving $\beta=2\pi~\mathrm{rad/m}$.
+Therefore
+\begin{align}
+\phasor V(z)&=2\ee^{-\jmath2\pi z}~\mathrm{V},\\
+\phasor I(z)&=0.04\ee^{-\jmath2\pi z}~\mathrm{A}.
+\end{align}
+Returning to real time,
+\begin{align}
+v(z,t)&=2\cos(4\pi\times10^8t-2\pi z)~\mathrm{V},\\
+i(z,t)&=0.04\cos(4\pi\times10^8t-2\pi z)~\mathrm{A}.
+\end{align}
+
+\subsection{Electrical length and load phase}
+
+The normalized length and electrical length are
+\[
+\frac{\ell}{\lambda}=3,
+\qquad \theta=\beta\ell=2\pi(3)=6\pi~\mathrm{rad}=1080\degree.
+\]
+Modulo $360\degree$, the load phase is $0\degree$.  Consequently,
+\[
+v_L(t)=2\cos(4\pi\times10^8t)~\mathrm{V},
+\]
+which is in phase with the ideal source waveform but smaller in amplitude
+because of the $75~\Omega$--$50~\Omega$ voltage division.
+
+\answer{The line contains exactly three wavelengths.  The load voltage is
+$2~\mathrm{V}$ peak and has zero net phase shift relative to $v_s(t)$.}
+
+\section{Problem 4}
+
+\MatchedLineDiagram{v_s(t)=10\cos(2\pi\,5\!\times\!10^7t)}{25~\Omega}{100~\Omega}{6~\mathrm{m}}{R_L=100~\Omega}
+
+\subsection{Matched-load fields}
+
+The air-filled line has
+\[
+\lambda=\frac{3\times10^8}{5\times10^7}=6~\mathrm{m},
+\qquad
+\beta=\frac{2\pi}{6}=\frac{\pi}{3}~\mathrm{rad/m},
+\qquad
+\ell=\lambda.
+\]
+With $R_L=Z_0$, the input is $100~\Omega$ and
+\[
+V_0^+=10\frac{100}{25+100}=8~\mathrm{V},
+\qquad I_0^+=0.08~\mathrm{A}.
+\]
+It follows that
+\begin{align}
+v(z,t)&=8\cos\left(\pi\times10^8t-\frac{\pi}{3}z\right)~\mathrm{V},\\
+i(z,t)&=0.08\cos\left(\pi\times10^8t-\frac{\pi}{3}z\right)~\mathrm{A}.
+\end{align}
+The average power delivered to the matched load is
+\begin{equation}
+P_L=\frac{1}{2}\frac{|V_0^+|^2}{R_L}
+=\frac{8^2}{2(100)}=0.320~\mathrm{W}.
+\end{equation}
+
+\subsection{Open-circuit case}
+
+If the load is open, $\Gamma_L=+1$; a backward wave must be added.  Since
+$\ell=\lambda$, the input repeats the open circuit and the source current is
+zero.  Hence $\phasor V(0)=10~\mathrm{V}$.  Equal forward and backward wave
+amplitudes of $5~\mathrm{V}$ satisfy this condition:
+\begin{align}
+\phasor V(z)&=5\ee^{-\jmath\beta z}+5\ee^{\jmath\beta z}
+=10\cos(\beta z),\\
+\phasor I(z)&=\frac{5}{100}\left(\ee^{-\jmath\beta z}
+-\ee^{\jmath\beta z}\right)=-\jmath0.10\sin(\beta z).
+\end{align}
+Thus
+\begin{align}
+v(z,t)&=10\cos\left(\frac{\pi z}{3}\right)
+\cos(\pi\times10^8t)~\mathrm{V},\\
+i(z,t)&=0.10\sin\left(\frac{\pi z}{3}\right)
+\sin(\pi\times10^8t)~\mathrm{A}.
+\end{align}
+The current vanishes at $z=0$ and $z=6~\mathrm{m}$, as expected for this
+one-wavelength open-ended line.
+
+\answer{The matched formulas give $P_L=0.320~\mathrm{W}$.  They do not remain
+valid after opening the load: the reflected wave produces a standing-wave
+voltage $10\cos(\pi z/3)\cos(\pi10^8t)$ V.}
+
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+The exact lossy-line formulas were used in Problems 1 and 2, while the
+reflection-free travelling-wave model was used in Problems 3 and 4.  The
+low-loss coaxial approximation agrees with the exact calculation to much
+better than $0.001\%$.  The open-circuit variant in Problem 4 demonstrates why
+a load change must be accompanied by a reflection analysis.
+
+\end{document}
