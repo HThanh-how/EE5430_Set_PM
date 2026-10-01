@@ -46,3 +46,20 @@ auxiliary build files.
   wave with reflection coefficient `+1`.
 
 Tagged releases attach the three final PDFs from `pdf/`.
+
+## Assignment 2: Standing waves and Smith chart
+
+Complete Vietnamese solutions to the six problems supplied in the assignment image.
+Each report contains the same checked solution, with the corresponding student name
+and ID, a Smith chart for Problem 1, and explicit node-displacement conventions.
+
+| Student | ID | PDF |
+|---|---:|---|
+| Nguyen Thai Thanh Binh | 2570175 | [PDF](output/pdf/EE5430_Assignment_2_Nguyen_Thai_Thanh_Binh_2570175.pdf) |
+| Vu Tien Giang | 2570188 | [PDF](output/pdf/EE5430_Assignment_2_Vu_Tien_Giang_2570188.pdf) |
+| Pham Huy Thanh | 2570317 | [PDF](output/pdf/EE5430_Assignment_2_Pham_Huy_Thanh_2570317.pdf) |
+
+Rebuild with `python scripts/build_assignment_2.py` (Python, ReportLab, pypdf,
+and Windows Arial fonts required). The builder checks the inverse-load results,
+VSWR, node phase, page count, and PDF text extraction. Air-line calculations use
+the classroom approximation `vp = 3e8 m/s`.
