@@ -59,7 +59,14 @@ and ID, a Smith chart for Problem 1, and explicit node-displacement conventions.
 | Vu Tien Giang | 2570188 | [PDF](output/pdf/EE5430_Assignment_2_Vu_Tien_Giang_2570188.pdf) |
 | Pham Huy Thanh | 2570317 | [PDF](output/pdf/EE5430_Assignment_2_Pham_Huy_Thanh_2570317.pdf) |
 
-Rebuild with `python scripts/build_assignment_2.py` (Python, ReportLab, pypdf,
-and Windows Arial fonts required). The builder checks the inverse-load results,
-VSWR, node phase, page count, and PDF text extraction. Air-line calculations use
-the classroom approximation `vp = 3e8 m/s`.
+The revised reports have eight pages each: cover, governing equations, and one
+page per problem. Equations use LaTeX mathematical typesetting. The Smith chart
+uses exact constant-resistance/reactance circles and clockwise propagation arcs;
+the slotted-line plots use the voltage-envelope equations at the measured nodes.
+The previous image-reference footer has been removed.
+
+Rebuild with `python scripts/build_assignment_2_latex.py` (Python, XeLaTeX,
+Times New Roman and Arial required). Standalone editable `.tex` files are in
+`src/` with the same stems as the PDFs. Air-line calculations use the classroom
+approximation `vp = 3e8 m/s`. Each inverse-load calculation includes a phase/node
+and VSWR consistency check in the report.
